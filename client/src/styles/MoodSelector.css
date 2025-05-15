@@ -1,0 +1,31 @@
+.mood-selector {
+    padding: 4px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.mood-selector h2{
+    margin-bottom: 2px;
+    font-weight: 500;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+}
+
+.moods {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.moods button{
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+    transition-property: transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+}
+
+.moods button:hover{
+    transform: scale(1.25);
+
+}

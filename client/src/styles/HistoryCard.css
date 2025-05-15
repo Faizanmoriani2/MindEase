@@ -1,0 +1,15 @@
+.history-card{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ece6cc;
+    margin: 10px 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+.history-card-date p {
+    font-weight: 700;
+}

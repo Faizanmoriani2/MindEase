@@ -1,0 +1,9 @@
+.history{
+    background-color: var(--secondary-color);
+    height: 95vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+}
