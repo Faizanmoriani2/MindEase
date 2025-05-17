@@ -1,7 +1,10 @@
-// controllers/chat.controller.js
+import { create } from "domain";
 import Chat from "../models/chat.model.js";
 import User from "../models/user.model.js";
-// import Message from "../models/chat.model.js"
+import { generateAIResponse } from "../utils/aiResponse.js";
+import { InferenceClient } from "@huggingface/inference";
+
+const client = new InferenceClient(process.env.HF_API_KEY);
 
 export const createChat = async (req, res) => {
   try {
@@ -10,7 +13,7 @@ export const createChat = async (req, res) => {
     const newChat = new Chat({
       user: userId,
       mood,
-      messages: [], // messages will be pushed during conversation
+      messages: [],
     });
 
     await newChat.save();
@@ -78,6 +81,7 @@ export const appendMessageToChat = async (req, res) => {
     }
 
     const chat = await Chat.findById(chatId);
+
     if (!chat) {
       return res.status(404).json({
         success: false,
@@ -85,7 +89,45 @@ export const appendMessageToChat = async (req, res) => {
       });
     }
 
-    chat.messages.push({ sender, content });
+    const userMessage = {sender, content};
+
+    chat.messages.push(userMessage);
+
+    const mood = chat.mood;
+    const moodContext = {
+        happy: "Respond in a cheerful and supportive tone.",
+        neutral: "Respond calmly and professionally.",
+        sad: "Respond with empathy and encouragement.",
+        angry: "Respond with calmness and reassurance.",
+        anxious: "Respond with gentle encouragement and reassurance.",
+    }
+
+
+    const prompt = `${moodContext[mood]}\nUser: ${content}`;
+
+    const response = await client.chatCompletion({
+        provider: "nscale",
+        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      })
+
+    const aiReply = response.choices?.[0]?.message?.content || "I'm here for you.";
+
+    chat.messages.push({
+        sender: "ai",
+        content: aiReply
+    })
+
+    //  ----- MOCK AI RESPONSE ----
+    // const aiReply = generateAIResponse(content);
+    // const aiMessage = {sender: 'ai', content: aiReply};
+    // chat.messages.push(aiMessage);
+
     await chat.save();
 
     res.status(200).json({
@@ -95,7 +137,7 @@ export const appendMessageToChat = async (req, res) => {
     });
   } catch (error) {
     console.error("Error appending message:", error);
-    res.status(500).json({
+    res.statusgetUserMoodHistory(500).json({
       success: false,
       message: "Something went wrong while appending the message",
     });
@@ -123,3 +165,73 @@ export const getMessagesByChatId = async (req, res) => {
     }
   };
   
+  export const getUserMoodHistory = async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      const moodData = await Chat.find({ user: userId })
+        .select("mood createdAt -_id")
+        .sort({ createdAt: -1 });
+  
+      res.status(200).json({
+        success: true,
+        data: moodData
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch mood history"
+      });
+    }
+  };
+  
+  export const deleteChat = async (req, res) => {
+    try {
+        const { chatId } = req.params;
+
+        const deleted = await Chat.findByIdAndDelete(chatId);
+
+        if(!deleted){
+            return res.status(404).json({
+                success:false,
+                message:'Chat not found',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "chat deleted successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message || "Failed to delete chat" });
+    }
+  }
+
+  export const deleteMessageFromChat = async(req,res)=> {
+    try {
+        const { chatId, messageIndex} = req.params;
+
+        const chat = await Chat.findById(chatId);
+
+        if(!chat){
+            return res.status(404).json({
+                success: false,
+                message: "Chat not found",
+            });
+        }
+
+        if(messageIndex < 0 || messageIndex >= chat.messages.length){
+            return res.status(400).json({
+                success:true,
+                message: "Invalid Message index",
+            });
+        }
+
+        chat.messages.splice(messageIndex, 1); 
+        await chat.save();
+        res.status(200).json({ success: true, message: "Message deleted successfully", data: chat.messages });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message || "Failed to delete message" });
+    }
+  }
