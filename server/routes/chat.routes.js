@@ -22,4 +22,8 @@ chatRouter.delete("/:chatId/message/:messageIndex", protect, deleteMessageFromCh
 
 chatRouter.get("/mood-history/:userId", protect, getUserMoodHistory)
 
+
+chatRouter.post('/:chatId/message', protect, appendMessageToChat);
+
+
 export default chatRouter;

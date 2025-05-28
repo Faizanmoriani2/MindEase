@@ -3,6 +3,7 @@
     flex-direction: column;
     height: 100%;
     border-left: 1px solid #ccc;
+
   }
   
   .mood-selector {
@@ -36,8 +37,9 @@
   .chat-window {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: scroll;
     background-color: #f7f7f7;
+    overflow-y: scroll;
   }
   
   .message-row {
@@ -77,6 +79,7 @@
     display: flex;
     padding: 10px;
     border-top: 1px solid #ccc;
+    
   }
   
   .chat-text {
@@ -86,6 +89,7 @@
     border-radius: 6px;
     border: 1px solid #ccc;
     margin-right: 10px;
+    
   }
   
   .send-button {
@@ -124,3 +128,48 @@
     background-color: #218838;
   }
   
+
+  .ai-typing {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 10px 10px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin-right: 5px;
+  background-color: #888;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.chat-input-form input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.chat-input-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

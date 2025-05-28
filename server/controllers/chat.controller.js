@@ -103,7 +103,16 @@ export const appendMessageToChat = async (req, res) => {
     }
 
 
-    const prompt = `${moodContext[mood]}\nUser: ${content}`;
+    // const prompt = `${moodContext[mood]}\nUser: ${content}`;
+
+    const prompt = `
+You are a compassionate mental health assistant. 
+Only respond to messages related to emotional well-being, mood, mental state, stress, or anxiety.
+If the message is irrelevant, respond: "I'm here to support your emotional well-being. Let’s focus on how you’re feeling today."
+
+${moodContext[mood]}\nUser: ${content}
+`;
+
 
     const response = await client.chatCompletion({
         provider: "nscale",

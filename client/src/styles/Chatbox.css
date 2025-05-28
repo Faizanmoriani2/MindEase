@@ -1,13 +1,20 @@
-.chatbox{
-    display: flex;
-    background-color: #F2F1ED;
-    min-height: 95vh;
-    padding: 10px;
-    flex-direction: column;
-    justify-content: space-between;
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  min-height: 95vh;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  gap: 16px;
+  transition: all 0.3s;
+  /* position: fixed; */
 }
-.prompt-area{
-    align-self: center;
-    justify-self: center;
-    margin-bottom: 40px;
+
+.prompt-area {
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: #555;
 }

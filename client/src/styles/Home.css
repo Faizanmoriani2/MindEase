@@ -5,14 +5,14 @@
 
 .history-container{
     flex: 1;
-    /* height: 99vh; */
+    height: 92vh;
     /* border: 1px solid black; */
 }
 
 .chatbox-container{
     flex:4;
-    /* height: 99vh; */
-    border: 0.5px solid black;
+    height: 92vh;
+    /* border: 0.5px solid black; */
 }
 
 

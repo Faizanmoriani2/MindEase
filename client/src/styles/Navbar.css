@@ -1,20 +1,47 @@
-.navbar{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding:7px;
-    background-color: var(--primary-color);
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 5px var(--nav-shadow);
+  border-radius: 0 0 12px 12px;
+  font-family: 'Poppins', sans-serif;
 }
 
-.links{
-    display: flex;
+.logo h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--text-color);
 }
 
-.links li{
-    list-style: none;
-    margin: 10px;
+.links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.links li {
+  list-style: none;
+}
+
+.links a, .logout {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 6px 12px;
+  transition: background 0.3s ease;
+  border-radius: 8px;
+}
+
+.links a:hover, .logout:hover {
+  background-color: var(--accent-color);
+  cursor: pointer;
 }
 
 hr {
-    background-color: var(--secondary-color);
+  height: 1px;
+  background-color: var(--secondary-color);
+  border: none;
 }
