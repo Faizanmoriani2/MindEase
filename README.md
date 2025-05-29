@@ -1,6 +1,6 @@
 # 🧠 MindEase – AI-Powered Mental Health Journaling Companion
 
-> Built for the [**Beyond the Code: Human-Centered Tech**](#) hackathon
+> Built for the [**Beyond the Code: Human-Centered Tech**](https://beyondthecode.devpost.com/) hackathon
 
 **MindEase** is a web-based AI companion that helps you track and manage your emotions in a safe, supportive space. Select your mood, start a chat, and receive compassionate, mood-aware responses powered by DeepSeek AI.
 
