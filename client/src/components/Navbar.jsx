@@ -1,6 +1,7 @@
 
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import '../styles/Navbar.css';
+import logo from "../assets/logo.png"
 
 const Navbar = () => {
   const location = useLocation();
@@ -19,7 +20,8 @@ const Navbar = () => {
     <>
   <nav className="navbar">
     <div className="logo">
-      <h2> MindEase</h2>
+      <Link to='/'> <img src={logo} alt="logo.png" /></Link>
+      <h2> <Link to="/">MindEase</Link></h2>
     </div>
     <ul className="links">
       {!token ? (
@@ -32,7 +34,6 @@ const Navbar = () => {
           {!isAuthPage && (
             <>
               <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/profile">Profile</Link></li>
             </>
           )}
           <li onClick={handleLogout} className="logout">Logout</li>

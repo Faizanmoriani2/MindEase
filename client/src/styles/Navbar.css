@@ -9,10 +9,24 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.logo{
+    display: flex;
+}
+
+.logo img{
+    width: 40px;
+    margin: 0px 10px;
+}
+
 .logo h2 {
   margin: 0;
   font-size: 1.8rem;
   color: var(--text-color);
+}
+
+.logo a{
+    text-decoration: none;
+    color: black;
 }
 
 .links {
@@ -45,3 +59,4 @@ hr {
   background-color: var(--secondary-color);
   border: none;
 }
+
