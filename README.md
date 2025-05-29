@@ -65,13 +65,13 @@ npm install
 ### Setting up .env in you backend (/server)
 
 Create a .env file in the /server folder:
-
+```bash
 PORT=5000 
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=7d
 HF_API_KEY=your_huggingface_api_key
-
+```
 ## Run Locally on your machine
 
 ### Start backend
