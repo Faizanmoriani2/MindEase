@@ -2,7 +2,7 @@
   padding: 30px;
   background-color: #f8f9fa;
   height: 100vh;
-  overflow-y: auto;
+ 
 }
 
 .dashboard h1 {
@@ -44,10 +44,13 @@
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #eee;
+  margin-bottom: 30px;
 }
 
-.dashboard-chart ul {
+.dashboard-list ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
   line-height: 1.8;
+  color: #333;
+  font-size: 15px;
 }
