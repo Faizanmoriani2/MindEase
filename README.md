@@ -75,12 +75,17 @@ HF_API_KEY=your_huggingface_api_key
 ## Run Locally on your machine
 
 ### Start backend
+```bash 
 cd server
 node --env-file .env ./app.js
+```
+
 
 ### Start frontend
+```bash
 cd client
 npm run dev
+```
 
 
 
