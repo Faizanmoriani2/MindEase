@@ -91,7 +91,7 @@ export const appendMessageToChat = async (req, res) => {
 
     const userMessage = {sender, content};
 
-    chat.messages.push(userMessage);
+    // chat.messages.push(userMessage); //
 
     const mood = chat.mood;
     const moodContext = {

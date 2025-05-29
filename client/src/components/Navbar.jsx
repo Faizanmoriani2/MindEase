@@ -24,6 +24,7 @@ const Navbar = () => {
       <h2> <Link to="/">MindEase</Link></h2>
     </div>
     <ul className="links">
+      <li><Link to='/about'>About</Link></li>
       {!token ? (
         <>
           {location.pathname !== '/login' && <li><Link to="/login">Login</Link></li>}

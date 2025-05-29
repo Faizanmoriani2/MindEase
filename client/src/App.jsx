@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Navbar from './components/Navbar'
 import RegisterForm from './pages/RegisterForm'
 import ProtectedRoute from './components/ProtectedRoute'
+import About from './pages/About'
 
 function App() {
 
@@ -23,8 +24,9 @@ function App() {
           <Dashboard/>
         </ProtectedRoute> 
         } />
-      </Routes>
 
+      <Route path='/about' element={<About />}/>
+      </Routes>
     </div>
   )
 }
