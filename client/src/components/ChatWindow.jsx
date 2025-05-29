@@ -38,12 +38,12 @@ export default function ChatWindow({ chatId, mood, onNewChat }) {
   }, [chatId, token]);
 
   // 📨 Send user message & get AI reply
-  const sendMessage = async (text) => {
+ const sendMessage = async (text) => {
   setMessages((prev) => [...prev, { sender: "user", message: text }]);
-  setIsLoading(true); // 🌀 show spinner
+  setIsLoading(true); // optional spinner
 
   try {
-    await fetch(`http://localhost:6500/api/v1/chat/append/${chatId}`, {
+    const res = await fetch(`http://localhost:6500/api/v1/chat/append/${chatId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -52,39 +52,16 @@ export default function ChatWindow({ chatId, mood, onNewChat }) {
       body: JSON.stringify({ sender: "user", content: text }),
     });
 
-    const prompt = `
-    You are a compassionate mental health assistant. 
-    Only respond to messages related to emotional well-being, mood, mental state, stress, or anxiety.
-    If the message is irrelevant, respond: "I'm here to support your emotional well-being. Let’s focus on how you’re feeling today."
+    const data = await res.json();
 
-    Mood: ${mood}\nUser: ${text}`;
-
-    
-
-
-
-    const aiRes = await fetch("http://localhost:6500/api/v1/ai/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ prompt }),
-    });
-
-    const aiData = await aiRes.json();
-    const aiReply = aiData.aiMessage || "I'm here for you.";
-
-    await fetch(`http://localhost:6500/api/v1/chat/append/${chatId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ sender: "ai", content: aiReply }),
-    });
-
-    setMessages((prev) => [...prev, { sender: "ai", message: aiReply }]);
+    if (data.success && Array.isArray(data.data)) {
+      const updatedMessages = data.data.map((msg) => ({
+        sender: msg.sender,
+        message: msg.content,
+      }));
+      const filtered = messages.filter(msg => msg.sender !== 'user' || msg.message !== text);
+setMessages([...filtered, ...updatedMessages]);
+    }
   } catch (err) {
     console.error("AI fetch error:", err);
     setMessages((prev) => [
@@ -94,9 +71,9 @@ export default function ChatWindow({ chatId, mood, onNewChat }) {
         message: "Sorry, I'm having trouble responding right now.",
       },
     ]);
+  } finally {
+    setIsLoading(false);
   }
-
-  setIsLoading(false); // ✅ hide spinner
 };
 
 

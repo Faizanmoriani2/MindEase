@@ -91,7 +91,7 @@ export const appendMessageToChat = async (req, res) => {
 
     const userMessage = {sender, content};
 
-    // chat.messages.push(userMessage); //
+    chat.messages.push(userMessage); //
 
     const mood = chat.mood;
     const moodContext = {
@@ -100,6 +100,7 @@ export const appendMessageToChat = async (req, res) => {
         sad: "Respond with empathy and encouragement.",
         angry: "Respond with calmness and reassurance.",
         anxious: "Respond with gentle encouragement and reassurance.",
+        tired: "Respond with understanding and gentle energy.",
     }
 
 
